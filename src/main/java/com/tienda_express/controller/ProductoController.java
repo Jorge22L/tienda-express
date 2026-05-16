@@ -9,6 +9,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/productos")
@@ -32,10 +40,23 @@ public class ProductoController {
 
     @PostMapping("/guardar")
     public String guardarProducto(@Valid @ModelAttribute Producto producto,
-                                  BindingResult result, Model model){
+                                  BindingResult result, Model model,
+                                  @RequestParam("archivoImagen")MultipartFile imagen) throws IOException {
         if(result.hasErrors()){
             model.addAttribute("categorias", categoriaRepository.findAll());
             return "productos/formulario";
+        }
+
+        if(!imagen.isEmpty()){
+            String nombreArchivo = UUID.randomUUID() + "_" + imagen.getOriginalFilename();
+
+            Path rutaCarpeta = Paths.get("uploads/productos");
+            Files.createDirectories(rutaCarpeta);
+
+            Path rutaArchivo = rutaCarpeta.resolve(nombreArchivo);
+            Files.copy(imagen.getInputStream(), rutaArchivo, StandardCopyOption.REPLACE_EXISTING);
+
+            producto.setImagen(nombreArchivo);
         }
 
         productoService.guardar(producto);

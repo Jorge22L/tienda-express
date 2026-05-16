@@ -19,6 +19,9 @@
                     <h5 class="card-title" th:text="${producto.nombre}">Nombre</h5>
                     <p class="card-text" th:text="${producto.descripcion}">Descripcion</p>
                     <p class="card-text" th:text="${producto.precio}">Precio</p>
+                    <img th:src="@{'/uploads/productos/' + ${producto.imagen}}"
+                         class="card-img-top"
+                         alt="Imagen del producto">
                     <p class="card-text" th:text="${producto.stock}"> Stock</p>
                     <p class="card-text" th:text="${producto.categoria.nombre}"> Categoria</p>
                     <a th:href="@{/productos/{id}(id=${producto.id})}" class="btn btn-info btn-sm">Ver</a>
