@@ -7,27 +7,48 @@
 </head>
 <body class="bg-dark text-light">
 <div class="container mt-4">
-    <h1 th:text="${producto.id == null ? 'Nuevo Producto' : 'Editar Producto'}"></h1>
+    <h1 th:text="${producto.id == null ? 'Nuevo Producto' : 'Editar Producto'}">Formulario Producto</h1>
 
     <form method="post"
-    class="mt-3">
+          th:action="${producto.id == null} ? @{/productos/guardar} : @{/productos/actualizar/{id}(id=${producto.id})}"
+          th:object="${producto}"
+          class="mt-3">
         <div class="mb-3">
             <label for="nombre" class="form-label">Nombre</label>
-            <input type="text" class="form-control" th:field="*{producto.nombre}" id="nombre" name="nombre" placeholder="Nombre">
-            <div class="text-danger" th:errors="*{producto.nombre}"></div>
+            <input type="text" class="form-control" th:field="*{nombre}" id="nombre" name="nombre" placeholder="Nombre">
+            <div class="text-danger" th:errors="*{nombre}"></div>
         </div>
 
         <div class="mb-3">
             <label for="descripcion" class="form-label">Descripcion</label>
-            <textarea type="text" class="form-control" th:field="*{producto.descripcion}" id="descripcion" name="descripcion">
+            <textarea type="text" class="form-control" th:field="*{descripcion}" id="descripcion" name="descripcion">
             </textarea>
         </div>
 
         <div class="mb-3">
             <label for="precio" class="form-label">Precio</label>
-            <input type="text" class="form-control" th:field="*{producto.precio}" id="precio" name="precio" placeholder="Precio">
-            <div class="text-danger" th:errors="*{producto.precio}"></div>
+            <input type="text" class="form-control" th:field="*{precio}" id="precio" name="precio" placeholder="Precio">
+            <div class="text-danger" th:errors="*{precio}"></div>
         </div>
+        <div class="mb-3">
+            <label class="form-label">Imagen</label>
+            <input type="text" th:field="*{imagen}" class="form-control" placeholder="Imagen" id="imagen" name="imagen">
+        </div>
+        <div class="mb-3">
+            <label for="stock" class="form-label">Stock</label>
+            <input type="text" class="form-control" th:field="*{stock}" id="stock" name="stock" placeholder="Stock">
+            <div class="text-danger" th:errors="*{stock}"></div>
+        </div>
+        <div class="mb-3">
+            <label for="categoria" class="form-label">Categoria</label>
+            <select class="form-select" th:field="*{categoria}" id="categoria" name="categoria">
+                <option value="0">Seleccione una Categoria</option>
+                <option th:each="categoria : ${categorias}" th:value="${categoria.id}" th:text="${categoria.nombre}"></option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-success">Guardar</button>
+        <a th:href="@{/productos}" class="btn btn-secondary">Cancelar</a>
     </form>
 </div>
 </body>
