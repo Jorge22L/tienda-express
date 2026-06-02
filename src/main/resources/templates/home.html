@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main}">
+
+<head>
+    <title>Inicio</title>
+</head>
+
+<body>
+
+<section layout:fragment="contenido">
+
+    <!-- Hero -->
+    <div class="p-5 mb-5 bg-primary rounded text-white shadow">
+
+        <h1 class="display-4 fw-bold">
+            Bienvenido a Tienda Express
+        </h1>
+
+        <p class="lead">
+            Encuentra productos de tecnología, hogar, accesorios y mucho más.
+        </p>
+
+        <a th:href="@{/productos}"
+           class="btn btn-light btn-lg">
+            Ver catálogo
+        </a>
+
+    </div>
+
+    <!-- Características -->
+    <div class="row text-center mb-5">
+
+        <div class="col-md-4">
+            <div class="card bg-secondary text-light h-100">
+                <div class="card-body">
+                    <h3>🚚 Entregas</h3>
+                    <p>Recibe tus productos de forma rápida y segura.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card bg-secondary text-light h-100">
+                <div class="card-body">
+                    <h3>💳 Compras fáciles</h3>
+                    <p>Proceso simple para solicitar tus productos.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card bg-secondary text-light h-100">
+                <div class="card-body">
+                    <h3>⭐ Calidad</h3>
+                    <p>Productos seleccionados para nuestros clientes.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Productos destacados -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Productos destacados</h2>
+
+        <a th:href="@{/productos}"
+           class="btn btn-outline-light">
+            Ver todos
+        </a>
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-3 mb-4"
+             th:each="producto : ${productosDestacados}">
+
+            <div class="card h-100 bg-secondary text-light shadow">
+
+                <img th:src="@{'/uploads/productos/' + ${producto.imagen}}"
+                     class="card-img-top"
+                     style="height:220px; object-fit:cover;"
+                     alt="Producto">
+
+                <div class="card-body">
+
+                    <h5 class="card-title"
+                        th:text="${producto.nombre}">
+                        Nombre
+                    </h5>
+
+                    <p class="card-text"
+                       th:text="${producto.descripcion}">
+                        Descripción
+                    </p>
+
+                    <h4 class="text-warning">
+                        $<span th:text="${producto.precio}"></span>
+                    </h4>
+
+                </div>
+
+                <div class="card-footer bg-transparent border-0">
+
+                    <a th:href="@{/productos/{id}(id=${producto.id})}"
+                       class="btn btn-primary w-100">
+                        Ver detalle
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+</body>
+</html>
