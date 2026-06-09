@@ -1,57 +1,116 @@
 <!DOCTYPE html>
 <html lang="es"
       xmlns:th="https://www.thymeleaf.org"
-      xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="UTF-8">
+
     <title layout:title-pattern="$CONTENT_TITLE - Tienda Express">
         Tienda Express
     </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body class="bg-dark text-light">
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-black">
+<nav class="navbar navbar-expand-lg navbar-dark bg-black border-bottom border-secondary">
+
     <div class="container">
 
         <a class="navbar-brand fw-bold"
            th:href="@{/}">
-            Tienda Express
+            🛒 Tienda Express
         </a>
 
-        <div class="navbar-nav">
+        <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarPrincipal">
 
-            <a class="nav-link"
-               th:href="@{/}">
-                Inicio
-            </a>
+            <span class="navbar-toggler-icon"></span>
 
-            <a class="nav-link"
-               th:href="@{/productos}">
-                Productos
-            </a>
+        </button>
 
-            <a class="nav-link"
-               th:href="@{/productos/nuevo}">
-                Nuevo Producto
-            </a>
+        <div class="collapse navbar-collapse"
+             id="navbarPrincipal">
+
+            <ul class="navbar-nav me-auto">
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                       th:href="@{/}">
+                        Inicio
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                       th:href="@{/productos}">
+                        Productos
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                       th:href="@{/roles}">
+                        Roles
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                       th:href="@{/usuarios}">
+                        Usuarios
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                       th:href="@{/pedidos}">
+                        Pedidos
+                    </a>
+                </li>
+
+            </ul>
+
+            <!-- Futuro Spring Security -->
+
+            <ul class="navbar-nav">
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                       th:href="@{/login}">
+                        Iniciar Sesión
+                    </a>
+                </li>
+
+            </ul>
 
         </div>
 
     </div>
+
 </nav>
 
-<main class="container mt-4 mb-5" layout:fragment="contenido">
-    <!-- Aquí se inyecta el contenido de cada página -->
+<main class="container mt-4 mb-5"
+      layout:fragment="contenido">
+
 </main>
 
 <footer class="bg-black text-center text-secondary py-3 border-top border-secondary">
-    <small>© 2026 Tienda Express - Proyecto académico</small>
+
+    <small>
+        © 2026 Tienda Express - Proyecto académico con Spring Boot y Thymeleaf
+    </small>
+
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
